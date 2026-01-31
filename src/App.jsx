@@ -1,25 +1,81 @@
 import React, { useState, useEffect } from 'react';
-import { Code, Database, Brain, Mail, Linkedin, Github, ExternalLink, Menu, X } from 'lucide-react';
+import { Code, Database, Brain, Mail, Linkedin, Github, ExternalLink, Menu, X, Cloud, Cpu, Network, Target } from 'lucide-react';
 
 const Portfolio = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isVisible, setIsVisible] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
+  // Programming Languages (Market ke most demanded)
   const skills = [
-    { name: 'C++', level: 90, category: 'Programming' },
-    { name: 'Python', level: 85, category: 'Programming' },
-    { name: 'DSA', level: 88, category: 'Core CS' },
-    { name: 'OOPS', level: 85, category: 'Core CS' },
-    { name: 'DBMS', level: 80, category: 'Core CS' },
-    { name: 'Computer Networks', level: 75, category: 'Core CS' },
-    { name: 'System Design', level: 70, category: 'Core CS' },
-    { name: 'Web Development', level: 82, category: 'Development' },
-    { name: 'AI/ML', level: 78, category: 'Development' },
+    { name: 'Python', level: 90, category: 'Programming' },
+    { name: 'C++', level: 88, category: 'Programming' },
+    { name: 'Java', level: 85, category: 'Programming' },
+    { name: 'JavaScript', level: 82, category: 'Programming' },
+    { name: 'SQL', level: 85, category: 'Programming' },
+    
+    // Core Computer Science
+    { name: 'Data Structures & Algorithms', level: 92, category: 'Core CS' },
+    { name: 'Object-Oriented Programming', level: 88, category: 'Core CS' },
+    { name: 'System Design (HLD/LLD)', level: 85, category: 'Core CS' },
+    { name: 'Database Management Systems', level: 83, category: 'Core CS' },
+    { name: 'Operating Systems', level: 80, category: 'Core CS' },
+    { name: 'Computer Networks', level: 78, category: 'Core CS' },
+    
+    // AI/ML & Generative AI (HIGH DEMAND 2024-26 🔥)
+    { name: 'Machine Learning', level: 85, category: 'AI/ML' },
+    { name: 'Deep Learning', level: 82, category: 'AI/ML' },
+    { name: 'Generative AI (Gen AI)', level: 80, category: 'AI/ML' },
+    { name: 'Large Language Models (LLMs)', level: 78, category: 'AI/ML' },
+    { name: 'Natural Language Processing', level: 80, category: 'AI/ML' },
+    { name: 'Agentic AI Systems', level: 75, category: 'AI/ML' },
+    { name: 'Prompt Engineering', level: 82, category: 'AI/ML' },
+    { name: 'RAG (Retrieval Augmented Generation)', level: 75, category: 'AI/ML' },
+    { name: 'Computer Vision', level: 70, category: 'AI/ML' },
+    
+    // AI/ML Frameworks & Tools
+    { name: 'TensorFlow', level: 80, category: 'ML Frameworks' },
+    { name: 'PyTorch', level: 82, category: 'ML Frameworks' },
+    { name: 'Scikit-learn', level: 85, category: 'ML Frameworks' },
+    { name: 'Hugging Face Transformers', level: 78, category: 'ML Frameworks' },
+    { name: 'LangChain', level: 75, category: 'ML Frameworks' },
+    { name: 'OpenAI API (GPT-4, ChatGPT)', level: 80, category: 'ML Frameworks' },
+    
+    // Web Development (Full Stack)
+    { name: 'React.js', level: 85, category: 'Frontend' },
+    { name: 'Node.js', level: 82, category: 'Backend' },
+    { name: 'FastAPI', level: 80, category: 'Backend' },
+    { name: 'REST APIs', level: 88, category: 'Backend' },
+    { name: 'Microservices Architecture', level: 78, category: 'Backend' },
+    
+    // Cloud & DevOps (SUPER HOT 🔥)
+    { name: 'AWS (EC2, S3, Lambda, SageMaker)', level: 82, category: 'Cloud/DevOps' },
+    { name: 'Azure', level: 75, category: 'Cloud/DevOps' },
+    { name: 'Docker', level: 80, category: 'Cloud/DevOps' },
+    { name: 'Git & GitHub', level: 90, category: 'Cloud/DevOps' },
+    { name: 'CI/CD Pipelines', level: 78, category: 'Cloud/DevOps' },
+    
+    // Databases (SQL + NoSQL)
+    { name: 'MySQL', level: 85, category: 'Databases' },
+    { name: 'PostgreSQL', level: 82, category: 'Databases' },
+    { name: 'MongoDB', level: 80, category: 'Databases' },
+    { name: 'Vector Databases (Pinecone, Weaviate)', level: 70, category: 'Databases' },
+    
+    // Big Data & Analytics
+    { name: 'Apache Spark', level: 75, category: 'Big Data' },
+    { name: 'Apache Kafka', level: 72, category: 'Big Data' },
+    { name: 'Data Analytics', level: 80, category: 'Big Data' },
+    
+    // Soft Skills (IMPORTANT!)
+    { name: 'Problem Solving (350+ LeetCode)', level: 92, category: 'Soft Skills' },
+    { name: 'Team Collaboration', level: 88, category: 'Soft Skills' },
+    { name: 'Communication', level: 85, category: 'Soft Skills' },
+    { name: 'Agile Methodology', level: 82, category: 'Soft Skills' },
   ];
 
   const projects = [
@@ -42,11 +98,35 @@ const Portfolio = () => {
   ];
 
   const achievements = [
-    '200+ DSA Problems Solved',
+    '300+ DSA Problems Solved (LeetCode)',
     'MAIT Delhi - CSE 2026',
-    'CampusX Certified',
-    'Strong Core CS Fundamentals'
+    'Maths Champion',
+    'Gen AI & LLMs Specialist',
+    'Full Stack Developer',
+    'Cloud & DevOps Enthusiast'
   ];
+
+  const categories = ['All', 'Programming', 'Core CS', 'AI/ML', 'ML Frameworks', 'Frontend', 'Backend', 'Cloud/DevOps', 'Databases', 'Big Data', 'Soft Skills'];
+
+  const filteredSkills = selectedCategory === 'All' 
+    ? skills 
+    : skills.filter(skill => skill.category === selectedCategory);
+
+  const getCategoryIcon = (category) => {
+    const icons = {
+      'Programming': <Code size={20} />,
+      'Core CS': <Cpu size={20} />,
+      'AI/ML': <Brain size={20} />,
+      'ML Frameworks': <Brain size={20} />,
+      'Frontend': <Code size={20} />,
+      'Backend': <Database size={20} />,
+      'Cloud/DevOps': <Cloud size={20} />,
+      'Databases': <Database size={20} />,
+      'Big Data': <Network size={20} />,
+      'Soft Skills': <Target size={20} />,
+    };
+    return icons[category] || <Code size={20} />;
+  };
 
   const scrollToSection = (sectionId) => {
     setActiveSection(sectionId);
@@ -131,12 +211,12 @@ const Portfolio = () => {
           </h1>
           
           <p className="text-xl md:text-2xl text-slate-400 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Passionate about <span className="text-cyan-400 font-semibold">Problem Solving</span> • 
-            <span className="text-blue-400 font-semibold"> Data Structures & Algorithms</span> • 
-            <span className="text-purple-400 font-semibold"> Machine Learning</span>
+            Specializing in <span className="text-cyan-400 font-semibold">Generative AI & LLMs</span> • 
+            <span className="text-blue-400 font-semibold"> Full Stack Development</span> • 
+            <span className="text-purple-400 font-semibold"> Cloud & DevOps</span>
           </p>
 
-          <div className="flex gap-4 justify-center flex-wrap">
+          <div className="flex gap-4 justify-center flex-wrap mb-8">
             <button 
               onClick={() => scrollToSection('projects')}
               className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-105"
@@ -149,6 +229,13 @@ const Portfolio = () => {
             >
               Get In Touch
             </button>
+          </div>
+
+          <div className="flex gap-3 justify-center flex-wrap text-sm text-slate-400 mb-8">
+            <span className="px-3 py-1 bg-slate-800/50 rounded-full">🔥 Gen AI Specialist</span>
+            <span className="px-3 py-1 bg-slate-800/50 rounded-full">🚀 350+ LeetCode</span>
+            <span className="px-3 py-1 bg-slate-800/50 rounded-full">☁️ AWS & Azure</span>
+            <span className="px-3 py-1 bg-slate-800/50 rounded-full">🤖 LangChain & RAG</span>
           </div>
 
           <div className="flex gap-6 justify-center mt-12">
@@ -175,9 +262,9 @@ const Portfolio = () => {
           </h2>
           
           <div className="grid md:grid-cols-2 gap-12">
-  <div className="space-y-6">
+            <div className="space-y-6">
     <p className="text-lg text-slate-300 leading-relaxed">
-      I'm a <span className="text-cyan-400 font-semibold">B.Tech student in Electronics & Communication Engineering</span> at 
+      I'm a <span className="text-cyan-400 font-semibold">B.Tech student in Computer Science Engineering</span> at 
       <span className="text-cyan-400 font-semibold"> MAIT Delhi</span>, graduating in 2026 with a 
       <span className="text-yellow-400 font-semibold"> CGPA of 8.2</span>. My journey in tech has been driven by a 
       relentless passion for solving complex problems and building scalable, innovative solutions.
@@ -200,7 +287,7 @@ const Portfolio = () => {
   </div>
 
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-cyan-400 mb-6">Achievements</h3>
+              <h3 className="text-2xl font-bold text-cyan-400 mb-6">Key Achievements</h3>
               {achievements.map((achievement, index) => (
                 <div 
                   key={index}
@@ -217,39 +304,81 @@ const Portfolio = () => {
 
       {/* Skills Section */}
       <section id="skills" className="min-h-screen flex items-center justify-center px-6 py-20">
-        <div className="max-w-6xl mx-auto w-full">
-          <h2 className="text-5xl font-bold mb-16 text-center">
+        <div className="max-w-7xl mx-auto w-full">
+          <h2 className="text-5xl font-bold mb-8 text-center">
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
               Technical Skills
             </span>
           </h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {['Programming', 'Core CS', 'Development'].map((category) => (
-              <div key={category} className="space-y-6">
-                <h3 className="text-2xl font-bold text-cyan-400 mb-6 flex items-center gap-2">
-                  {category === 'Programming' && <Code size={24} />}
-                  {category === 'Core CS' && <Database size={24} />}
-                  {category === 'Development' && <Brain size={24} />}
-                  {category}
-                </h3>
-                
-                {skills.filter(skill => skill.category === category).map((skill, index) => (
-                  <div key={index} className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-300 font-semibold">{skill.name}</span>
-                      <span className="text-cyan-400">{skill.level}%</span>
-                    </div>
-                    <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full transition-all duration-1000"
-                        style={{ width: `${skill.level}%` }}
-                      ></div>
-                    </div>
+          <p className="text-center text-slate-400 mb-12 max-w-2xl mx-auto">
+            Comprehensive skill set covering the most in-demand technologies for 2024-2026
+          </p>
+
+          {/* Category Filter */}
+          <div className="flex flex-wrap gap-3 justify-center mb-12">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                  selectedCategory === category
+                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/30'
+                    : 'bg-slate-800/50 text-slate-300 hover:bg-slate-700/50 border border-slate-700'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+
+          {/* Skills Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredSkills.map((skill, index) => (
+              <div 
+                key={index}
+                className="p-5 bg-slate-800/30 border border-slate-700 rounded-xl hover:border-cyan-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="text-cyan-400">
+                    {getCategoryIcon(skill.category)}
                   </div>
-                ))}
+                  <div className="flex-1">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-slate-200 font-semibold text-sm">{skill.name}</span>
+                      <span className="text-cyan-400 text-xs font-bold">{skill.level}%</span>
+                    </div>
+                    <div className="text-xs text-slate-500">{skill.category}</div>
+                  </div>
+                </div>
+                <div className="h-2 bg-slate-900 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full transition-all duration-1000"
+                    style={{ width: `${skill.level}%` }}
+                  ></div>
+                </div>
               </div>
             ))}
+          </div>
+
+          {/* Skills Summary */}
+          <div className="mt-16 grid md:grid-cols-4 gap-6">
+            <div className="p-6 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-xl text-center">
+              <div className="text-3xl font-bold text-cyan-400 mb-2">{skills.length}</div>
+              <div className="text-slate-400">Total Skills</div>
+            </div>
+            <div className="p-6 bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-xl text-center">
+              <div className="text-3xl font-bold text-purple-400 mb-2">11</div>
+              <div className="text-slate-400">Skill Categories</div>
+            </div>
+            <div className="p-6 bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-xl text-center">
+              <div className="text-3xl font-bold text-green-400 mb-2">350+</div>
+              <div className="text-slate-400">DSA Problems</div>
+            </div>
+            <div className="p-6 bg-gradient-to-br from-orange-500/10 to-red-500/10 border border-orange-500/20 rounded-xl text-center">
+              <div className="text-3xl font-bold text-orange-400 mb-2">85%</div>
+              <div className="text-slate-400">Avg Proficiency</div>
+            </div>
           </div>
         </div>
       </section>
@@ -330,7 +459,8 @@ const Portfolio = () => {
           </h2>
           
           <p className="text-xl text-slate-300 mb-12 max-w-2xl mx-auto">
-            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+            Open to opportunities in Gen AI, Full Stack Development, and Cloud Engineering. 
+            Let's build something amazing together!
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
@@ -340,6 +470,13 @@ const Portfolio = () => {
             >
               <Mail size={24} />
               Email Me
+            </a>
+            <a 
+              href="https://drive.google.com/file/d/1YPWdNJoq2MAXmQhcgQqSeynS2DLKMXY3/view?usp=sharing"
+              className="flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300"
+            >
+              <Mail size={24} />
+              My Resume
             </a>
             <a 
               href="https://www.linkedin.com/in/manishverma3/"
